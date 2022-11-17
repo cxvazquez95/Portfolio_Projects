@@ -1,26 +1,31 @@
 --Select Data that I am using
+
 SELECT location,date, total_cases, new_cases,total_deaths, population
 FROM `data-analytics-learning-sql.Covid_Deaths_Project.Covid_Deaths`
 ORDER BY location
 
 --Looking at Total Cases vs Total Deaths
+
 SELECT location,date, total_cases,total_deaths, (total_deaths/total_cases)*100 as Death_Percentage
 FROM `data-analytics-learning-sql.Covid_Deaths_Project.Covid_Deaths`
 ORDER BY location
 
 --Looking at the Total Cases vs Population
+
 SELECT location,date,population, total_cases, (total_cases/population)*100 as Population_Covid_Percentage
 FROM `data-analytics-learning-sql.Covid_Deaths_Project.Covid_Deaths`
 WHERE location='United States'
 ORDER BY date
 
 --Looking at Countries with highest incfection rate compared to Popuation
+
 SELECT location,population, MAX(total_cases)as Highest_Infection_Count, MAX((total_cases/population))*100 as Population_Infected
 FROM `data-analytics-learning-sql.Covid_Deaths_Project.Covid_Deaths`
 GROUP BY location,population
 order by Population_Infected desc
 
 --Showing Countries with highest death count per population
+
 SELECT location, max(total_deaths) as Total_Death_Count
 FROM `data-analytics-learning-sql.Covid_Deaths_Project.Covid_Deaths`
 WHERE continent is not null
@@ -44,6 +49,7 @@ GROUP BY continent
 order by Total_Death_Count desc
 
 --Global Numbers
+
 SELECT date, sum(new_cases) as total_case,sum(new_deaths) as total_deaths, sum(new_deaths)/sum(new_cases)*100 as Death_Percentage
 FROM `data-analytics-learning-sql.Covid_Deaths_Project.Covid_Deaths`
 WHERE continent is not null
